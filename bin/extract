@@ -55,8 +55,10 @@ program
                     // 回文抽出
                     var ps = palindrome.extract(line, 5);
                     for (var j = 0; j < ps.length; j++) {
+                        // 回文, 音数, ページタイトル, ファイル名, 行番号, 行数
                         process.stdout.write(
-                            ps[j] + "\t" +
+                            ps[j][0] + "\t" +
+                            ps[j][1] + "\t" +
                             title + "\t" +
                             filename + "\t" +
                             i.toString() + "\t" +
