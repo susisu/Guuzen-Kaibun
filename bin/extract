@@ -25,7 +25,7 @@ program
                     process.exit(1);
                     return;
                 }
-                var lines = text.split(/\n{2,}/);
+                var lines = text.split(/\n+/);
                 var numLines = lines.length;
                 var title = "";
                 for (var i = 0; i < numLines; i++) {
