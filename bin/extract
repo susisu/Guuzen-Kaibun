@@ -1,0 +1,75 @@
+#!/usr/bin/env node
+
+/*
+ * copyright (c) 2015 Susisu
+ */
+
+"use strict";
+
+var fs = require("fs");
+var palindrome = require("palindrome");
+var packageInfo = require("../package.json");
+
+var program = require("commander");
+
+program.version(packageInfo.version, "-v, --version");
+
+program
+    .arguments("<file>")
+    .action(function (filename) {
+        fs.readFile(
+            filename, { "encoding": "utf8" },
+            function (err, text) {
+                if (err) {
+                    process.stderr.write(err.toString() + "\n");
+                    process.exit(1);
+                    return;
+                }
+                var lines = text.split(/\n{2,}/);
+                var numLines = lines.length;
+                var title = "";
+                for (var i = 0; i < numLines; i++) {
+                    var line = lines[i];
+                    // 空行を飛ばす
+                    if (line.length === 0) {
+                        continue;
+                    }
+                    // 記事タイトルを取り出す
+                    if (/^\[\[(?!File\:[^\]]*?)([^\]]+?)\]\]$/.test(line)) {
+                        title = /^\[\[([^\]]+?)\]\]$/.exec(line)[1];
+                        continue;
+                    }
+                    // 見出しを飛ばす
+                    if (/^\=\=.+?\=\=$/.test(line)) {
+                        continue;
+                    }
+                    // ファイルへのリンクを代替テキストに置換
+                    // リンクを消す
+                    // タグを消す
+                    // 記号を消す（コマンドがバグるため応急処置。文章には影響はあまりないと思う）
+                    line =
+                        line.replace(/\[\[File\:.*?\|.*?\|.*?\|(.*?)\]\]/g, "$1")
+                            .replace(/\[\[([^\]]*?\|)?([^\]]*?)\]\]/g, "$2")
+                            .replace(/[<\[]].*?[>\]]|[<\[]]\/.*?[>\]]/g, "")
+                            .replace(/[;\|\*<>]/g, "");
+                    // 回文抽出
+                    var ps = palindrome.extract(line, 5);
+                    for (var j = 0; j < ps.length; j++) {
+                        process.stdout.write(
+                            ps[j] + "\t" +
+                            title + "\t" +
+                            filename + "\t" +
+                            i.toString() + "\t" +
+                            numLines.toString() + "\n"
+                        );
+                    }
+                }
+            }
+        );
+    });
+
+program.parse(process.argv);
+
+if (program.args.length === 0) {
+    program.help();
+}
