@@ -44,10 +44,12 @@ program
             });
             var output = "";
             for (i = 0; i < list.length; i++) {
+                // 回文、音数、ページ名、ファイル名
                 output +=
                     list[i][0] + "\t" +
                     list[i][1] + "\t" +
-                    list[i][2] + "\n";
+                    list[i][2] + "\t" +
+                    list[i][3] + "\n";
             }
             fs.writeFileSync(outfilename, output);
         })
