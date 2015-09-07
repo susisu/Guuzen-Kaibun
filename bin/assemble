@@ -42,14 +42,27 @@ program
             list.sort(function (x, y) {
                 return y[1] - x[1];
             });
+            var counts = [];
             var output = "";
             for (i = 0; i < list.length; i++) {
+                if (counts[list[i][1]] === undefined) {
+                    counts[list[i][1]] = 1;
+                }
+                else {
+                    counts[list[i][1]]++;
+                }
                 // 回文、音数、ページ名、ファイル名
                 output +=
                     list[i][0] + "\t" +
                     list[i][1] + "\t" +
                     list[i][2] + "\t" +
                     list[i][3] + "\n";
+            }
+            for (i = 0; i < counts.length; i++) {
+                if (!counts[i]) {
+                    counts[i] = 0;
+                }
+                process.stdout.write(i.toString() + "\t" + counts[i].toString() + "\n");
             }
             fs.writeFileSync(outfilename, output);
         })
