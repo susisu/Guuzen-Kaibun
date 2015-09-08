@@ -26,6 +26,7 @@ program
                     return;
                 }
                 var palindrome = new Palindrome();
+                palindrome.mecabCommand = "mecab -d /usr/local/lib/mecab/dic/mecab-ipadic-neologd";
                 // 記事ごとに区切る
                 // ただしファイルへのリンクでも区切られてしまうことがあるので注意
                 var articles = text.split(/\n(?=\[\[)/);
