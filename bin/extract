@@ -63,10 +63,11 @@ program
                         // 条件は5音以上、平仮名のみの場合はエントロピー0.9以上
                         var ps = palindrome.extract(sec, 5, 0.9);
                         for (var k = 0; k < ps.length; k++) {
-                            // 回文, 音数, 記事タイトル, ファイル名, 行番号, 行数
+                            // 回文, 読み, 音数, 記事タイトル, ファイル名, 行番号, 行数
                             process.stdout.write(
                                 ps[k][0] + "\t" +
                                 ps[k][1] + "\t" +
+                                ps[k][1].length + "\t" +
                                 title + "\t" +
                                 filename + "\t" +
                                 i.toString() + "\t" +
