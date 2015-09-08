@@ -60,8 +60,8 @@ program
                         // 記号を消す
                         sec = sec.replace(/\=/g, "");
                         // 回文抽出
-                        // 条件は5音以上、平仮名のみの場合はエントロピー0.9以上
-                        var ps = palindrome.extract(sec, 5, 0.9);
+                        // 条件は5音以上
+                        var ps = palindrome.extract(sec, 5);
                         for (var k = 0; k < ps.length; k++) {
                             // 回文, 読み, 音数, 記事タイトル, ファイル名, 行番号, 行数
                             process.stdout.write(
