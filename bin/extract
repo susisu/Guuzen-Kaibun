@@ -7,7 +7,7 @@
 "use strict";
 
 var fs = require("fs");
-var palindrome = require("palindrome");
+var Palindrome = require("palindrome");
 var packageInfo = require("../package.json");
 
 var program = require("commander");
@@ -25,6 +25,7 @@ program
                     process.exit(1);
                     return;
                 }
+                var palindrome = new Palindrome();
                 // 記事ごとに区切る
                 // ただしファイルへのリンクでも区切られてしまうことがあるので注意
                 var articles = text.split(/\n(?=\[\[)/);
@@ -58,7 +59,8 @@ program
                         // 記号を消す
                         sec = sec.replace(/\=/g, "");
                         // 回文抽出
-                        var ps = palindrome.extract(sec, 5);
+                        // 条件は5音以上、平仮名のみの場合はエントロピー0.9以上
+                        var ps = palindrome.extract(sec, 5, 0.9);
                         for (var k = 0; k < ps.length; k++) {
                             // 回文, 音数, 記事タイトル, ファイル名, 行番号, 行数
                             process.stdout.write(
