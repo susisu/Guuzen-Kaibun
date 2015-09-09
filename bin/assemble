@@ -69,12 +69,15 @@ program
                     list[i][3] + "\t" +
                     list[i][4] + "\n";
             }
+            var total = 0;
             for (i = 0; i < counts.length; i++) {
                 if (!counts[i]) {
                     counts[i] = 0;
                 }
+                total += counts[i];
                 process.stdout.write(i.toString() + "\t" + counts[i].toString() + "\n");
             }
+            process.stdout.write("\n# total\t" + total.toString() + "\n");
             fs.writeFileSync(outfilename, output);
         })
     });
