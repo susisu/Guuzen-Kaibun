@@ -70,12 +70,14 @@ program
                 else {
                     counts[list[i][2]] += duplNum[list[i][0]];
                 }
-                // 回文、音数、ページ名、ファイル名
+                // 回文, 読み, 音数, エントロピー, ページ名, 重複数, ファイル名
                 output +=
                     list[i][0] + "\t" +
                     list[i][1] + "\t" +
                     list[i][2].toString() + "\t" +
+                    u.toString() + "\t" +
                     list[i][3] + "\t" +
+                    duplNum[list[i][0]].toString() + "\t" +
                     list[i][4] + "\n";
             }
             var total = 0;
