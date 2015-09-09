@@ -56,10 +56,10 @@ program
             var output = "";
             for (i = 0; i < list.length; i++) {
                 if (counts[list[i][2]] === undefined) {
-                    counts[list[i][2]] = 1;
+                    counts[list[i][2]] = duplNum[list[i][0]];
                 }
                 else {
-                    counts[list[i][2]]++;
+                    counts[list[i][2]] += duplNum[list[i][0]];
                 }
                 // 回文、音数、ページ名、ファイル名
                 output +=
