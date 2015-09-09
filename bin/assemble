@@ -24,6 +24,8 @@ program
                 return;
             }
             var list = [];
+            // 重複数
+            var duplNum = Object.create(null);
             // ディレクトリ内のファイルを読み込む
             for (var i = 0; i < files.length; i++) {
                 var content = fs.readFileSync(dirname + "/" + files[i], { "encoding": "utf8" });
@@ -33,6 +35,14 @@ program
                         continue;
                     }
                     var info = lines[j].split("\t");
+                    // 重複していたら除く
+                    if (duplNum[info[0]]) {
+                        duplNum[info[0]]++;
+                        continue;
+                    }
+                    else {
+                        duplNum[info[0]] = 1;
+                    }
                     // 音数を数値に変換
                     info[2] = parseInt(info[2]);
                     list.push(info);
